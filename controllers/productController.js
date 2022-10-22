@@ -1,5 +1,7 @@
-const { products } = require('../models')
+const { products, sequelize } = require('../models')
 const db=require('../models')
+const { Op } = require("sequelize");
+
 
 const Product=db.products
 const Review=db.reviews
@@ -26,11 +28,16 @@ console.log(product);
 
 const getProduct=async(req,res)=>{
 	let products=await Product.findAll({
-		attributes:[
-			'title',
-			'price'
-		]
+		// attributes:[
+		// 	"title",
+		// 	[sequelize.fn('COUNT',sequelize.col('title')), 'n_hats'],
+		// 	"price"
+		// ]
+		
 	})
+	
+	console.log('@@@@@@');
+	console.log(products);
 	res.status(200).send(products)
 }
 
@@ -61,8 +68,13 @@ const deleteProduct=async(req,res)=>{
 //get published product
 
 const getPublishedproduct=async(req,res)=>{
-	const products=await Product.findall({where:{published:true}})
-	res.status(200).send(products.title)
+	// let products=await Product.findAll({
+		
+	// })
+	const products=await Product.findAll({where:{published:true}})
+	console.log('@@@@@@');
+	console.log(products);
+	res.status(200).send(products)
 }
 
 module.exports={addProduct,getProduct,getOneProduct,deleteProduct,getPublishedproduct,updateProduct}

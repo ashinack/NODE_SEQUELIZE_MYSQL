@@ -7,6 +7,6 @@ router.get('/getProduct',getProduct)
 router.get('/:id',getOneProduct)
 router.post('/:id',updateProduct)
 router.delete('/:id',deleteProduct)
-router.get('/getpubpro',getPublishedproduct)
+router.get('/published',getPublishedproduct)
 
 module.exports=router
